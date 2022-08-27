@@ -15,7 +15,6 @@ const swaggerUi = require('swagger-ui-express');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
-const resourceRouter = require('./routes/resourceRoutes');
 const userRouter = require('./routes/userRoutes');
 const categoryRouter = require('./routes/categoryRoutes');
 const productRouter = require('./routes/productRoutes');
@@ -106,7 +105,6 @@ app.use((req, res, next) => {
 
 // 3) ROUTES
 app.use('/api/users', userRouter);
-app.use('/api/resources', resourceRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/products', productRouter);
 
