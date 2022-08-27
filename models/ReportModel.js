@@ -2,13 +2,15 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const categorySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'پر کردن فیلد نام دسته بندی الزامی است'],
-    trim: true,
+  product: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Product',
+    required: [true, 'مشخص کردن محصول برای ثبت گزارش الزامی است'],
   },
-  slug: String,
-  icon: String,
+  description: {
+    type: String,
+    required: [true, 'توضیحات گزارش نمیتواند خالی باشد'],
+  },
 });
 
 categorySchema.pre('save', function (next) {

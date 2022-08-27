@@ -8,12 +8,9 @@ const userSchema = new mongoose.Schema({
   family: String,
   email: {
     type: String,
-    validate: {
-      validator: function (val) {
-        return validator.isEmail(val);
-      },
-      message: 'لطفا ایمیل معتبر وارد نمایید',
-    },
+    unique: true,
+    lowercase: true,
+    validate: [validator.isEmail, 'لطفا ایمیل معتبر وارد نمایید'],
   },
   mobile: {
     type: String,
@@ -30,13 +27,37 @@ const userSchema = new mongoose.Schema({
   nationalCode: String,
   role: {
     type: String,
-    enum: [ENUMS.USER_ROLES.ADMIN, ENUMS.USER_ROLES.USER],
+    enum: [
+      ENUMS.USER_ROLES.ADMIN,
+      ENUMS.USER_ROLES.PRODUCT_MANAGER,
+      ENUMS.USER_ROLES.SUPPORT,
+      ENUMS.USER_ROLES.USER,
+    ],
     default: ENUMS.USER_ROLES.USER,
   },
+  cart: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Product',
+    },
+  ],
   favorites: [
     {
       type: mongoose.Schema.ObjectId,
       ref: 'Product',
+    },
+  ],
+  locations: [
+    {
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+      day: Number,
     },
   ],
   otpCode: String,
@@ -44,6 +65,29 @@ const userSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true,
+    select: false,
+  },
+  // password: {
+  //   type: String,
+  //   minlength: 8,
+  //   select: false,
+  // },
+  // passwordConfirm: {
+  //   type: String,
+  //   validate: {
+  //     // This only works on CREATE and SAVE!!!
+  //     validator: function (el) {
+  //       return el === this.password;
+  //     },
+  //     message: 'رمز عبور و تکرار آن با هم مطابقت ندارند',
+  //   },
+  // },
+  // passwordChangedAt: Date,
+  // passwordResetToken: String,
+  // passwordResetExpires: Date,
+  createdAt: {
+    type: Date,
+    default: Date.now(),
     select: false,
   },
 });
