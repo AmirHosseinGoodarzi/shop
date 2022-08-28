@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 
-const categorySchema = new mongoose.Schema({
+const reportSchema = new mongoose.Schema({
   product: {
     type: mongoose.Schema.ObjectId,
     ref: 'Product',
@@ -13,11 +13,11 @@ const categorySchema = new mongoose.Schema({
   },
 });
 
-categorySchema.pre('save', function (next) {
+reportSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { replacement: '_', lower: true });
   next();
 });
 
-const categoryModel = mongoose.model('Category', categorySchema);
+const reportModel = mongoose.model('Report', reportSchema);
 
-module.exports = categoryModel;
+module.exports = reportModel;

@@ -1,0 +1,257 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Node js Shop ",
+    "description": "Shop using modern technologies: node.js, express, mongoDB, mongoose and friends 😂\n\n**Base Url : [localhost:3000](http://localhost:3000)**",
+    "contact": {
+      "email": "AmirGoodarzi.web@gmail.com"
+    },
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/api/users/loginSignup": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Sign up operation | (if user Exist) Login operation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mobile": {
+                    "type": "string",
+                    "example": "09012345678"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {}
+      }
+    },
+    "/api/users/checkOtpCode": {
+      "post": {
+        "tags": ["users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mobile": {
+                    "type": "string",
+                    "example": "09012345678"
+                  },
+                  "otpCode": {
+                    "type": "string",
+                    "example": "12345"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {}
+      }
+    },
+    "/api/users/logout": {
+      "get": {
+        "tags": ["users"],
+        "responses": {}
+      }
+    },
+    "/api/categories": {
+      "get": {
+        "tags": ["categories"],
+        "summary": "Get All Categories",
+        "parameters": [
+          {
+            "$ref": "#/components/getAllDocsParameters/filter"
+          },
+          {
+            "$ref": "#/components/getAllDocsParameters/sort"
+          },
+          {
+            "$ref": "#/components/getAllDocsParameters/fields"
+          },
+          {
+            "$ref": "#/components/getAllDocsParameters/page"
+          },
+          {
+            "$ref": "#/components/getAllDocsParameters/limit"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      },
+      "post": {
+        "tags": ["categories"],
+        "summary": "Create Category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/categories/{id}": {
+      "patch": {
+        "tags": ["categories"],
+        "summary": "Updating an existing Category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "category Id",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": ["categories"],
+        "summary": "Delete an existing Category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "category Id",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Category": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "String",
+            "example": "Category Name"
+          },
+          "slug": {
+            "type": "String",
+            "example": "---"
+          },
+          "icon": {
+            "type": "String",
+            "example": "image address"
+          }
+        }
+      }
+    },
+    "getAllDocsParameters": {
+      "filter": {
+        "name": "filter",
+        "in": "query",
+        "description": "Limits the number of returned results ( also you can use [gt] | [gte] | [lt] | [lte] operators)",
+        "required": false,
+        "schema": {
+          "type": "String",
+          "example": "name=test&price[gte]=1000&..."
+        }
+      },
+      "sort": {
+        "name": "sort",
+        "in": "query",
+        "description": "Sort the returned results (also you can use -field for deccending)",
+        "required": false,
+        "schema": {
+          "type": "String",
+          "example": "-price,name"
+        }
+      },
+      "fields": {
+        "name": "fields",
+        "in": "query",
+        "description": "Limits the fields of returned results  (also you can use -field for get All field except that)",
+        "required": false,
+        "schema": {
+          "type": "String",
+          "example": "name,price"
+        }
+      },
+      "page": {
+        "name": "page",
+        "in": "query",
+        "description": "The page of returned results",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1,
+          "format": "int32"
+        }
+      },
+      "limit": {
+        "name": "limit",
+        "in": "query",
+        "description": "Limits the number of returned results from page",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 100,
+          "format": "int32"
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

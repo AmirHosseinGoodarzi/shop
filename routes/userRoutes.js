@@ -11,24 +11,14 @@ router.post('/checkOtpCode', authController.checkOtpCode);
 
 router.get('/logout', authController.logout);
 
-router
-  .route('/')
-  .get(
-    authController.protect,
-    authController.restrictTo(ENUMS.USER_ROLES.ADMIN),
-    userController.getAllUsers
-  );
+router.use(authController.protect);
+router.use(authController.restrictTo(ENUMS.USER_ROLES.ADMIN));
+
+router.route('/').get(authController.protect, userController.getAllUsers);
 router
   .route('/:id')
-  .get(
-    authController.protect,
-    authController.restrictTo(ENUMS.USER_ROLES.ADMIN),
-    userController.getUser
-  )
-  .patch(authController.protect, userController.updateUser)
-  .delete(
-    authController.protect,
-    authController.restrictTo(ENUMS.USER_ROLES.ADMIN),
-    userController.deleteUser
-  );
+  .get(userController.getUser)
+  .patch(userController.updateUser)
+  .delete(userController.deleteUser);
+
 module.exports = router;

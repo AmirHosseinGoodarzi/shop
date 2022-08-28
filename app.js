@@ -10,8 +10,8 @@ const cookieParser = require('cookie-parser');
 // const bodyParser = require('body-parser');
 const compression = require('compression');
 const cors = require('cors');
-const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const swaggerDoc = require('./swagger.json');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
@@ -22,26 +22,7 @@ const productRouter = require('./routes/productRoutes');
 // Start express app
 const app = express();
 
-const swaggerSpec = swaggerJSDoc({
-  swaggerDefinition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Express API for shop',
-      version: '1.0.0',
-      description:
-        'This is a REST API application made with Express. It retrieves data from shop',
-    },
-    servers: [
-      {
-        url: 'http://localhost:3000',
-        description: 'Development server',
-      },
-    ],
-  },
-  // Paths to files containing OpenAPI definitions
-  apis: ['./routes/*.js'],
-});
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.enable('trust proxy');
 

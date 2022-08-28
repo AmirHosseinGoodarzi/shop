@@ -73,10 +73,10 @@ exports.getOne = (Model, popOptions) => {
 exports.getAll = (Model) => {
   return catchAsync(async (req, res, next) => {
     // To allow for nested GET reviews on tour (hack)
-    let filter = {};
-    if (req.params.tourId) filter = { tour: req.params.tourId };
-
-    const features = new APIFeatures(Model.find(filter), req.query)
+    // let filter = {};
+    // if (req.params.tourId) filter = { tour: req.params.tourId };
+    // Model.find(filter) be jaye Model paiini
+    const features = new APIFeatures(Model, req.query)
       .filter()
       .sort()
       .limitFields()
