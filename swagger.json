@@ -246,6 +246,84 @@
         ],
         "responses": {}
       }
+    },
+    "/api/products": {
+      "post": {
+        "tags": ["products"],
+        "summary": "Create product",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/products/{id}": {
+      "patch": {
+        "tags": ["products"],
+        "summary": "Updating an existing product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "product Id",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": ["products"],
+        "summary": "Delete an existing product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "product Id",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      }
     }
   },
   "components": {
@@ -305,6 +383,59 @@
           "locations": {
             "type": "String",
             "example": "[PointX,PointY]"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "String",
+            "example": "Product name"
+          },
+          "type": {
+            "type": "string",
+            "default": "available",
+            "enum": ["ENUMS.PRODUCT_TYPES.DIGITAL", "ENUMS.PRODUCT_TYPES.PHISYCAL"]
+          },
+          "status": {
+            "type": "string",
+            "default": "available",
+            "enum": ["ENUMS.PRODUCT_STATUSES.IN_STOCK", "ENUMS.PRODUCT_STATUSES.WARNING", "ENUMS.PRODUCT_STATUSES.OUT_OF_STOCK"]
+          },
+          "images": {
+            "type": "Array",
+            "example": "Product name"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32",
+            "example": 10000
+          },
+          "deliveryCost": {
+            "type": "integer",
+            "format": "int32",
+            "example": 5000
+          },
+          "discountPercent": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "example": 50
+          },
+          "description": {
+            "type": "String",
+            "example": "description and about of product"
+          },
+          "category": {
+            "type": "String",
+            "example": "Category Id"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "example": 10
           }
         }
       }
