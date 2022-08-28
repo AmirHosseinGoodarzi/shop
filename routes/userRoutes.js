@@ -12,13 +12,14 @@ router.post('/checkOtpCode', authController.checkOtpCode);
 router.get('/logout', authController.logout);
 
 router.use(authController.protect);
-router.use(authController.restrictTo(ENUMS.USER_ROLES.ADMIN));
 
-router.route('/').get(authController.protect, userController.getAllUsers);
 router
   .route('/:id')
   .get(userController.getUser)
-  .patch(userController.updateUser)
-  .delete(userController.deleteUser);
+  .patch(userController.updateUser);
+
+router.use(authController.restrictTo(ENUMS.USER_ROLES.ADMIN));
+
+router.route('/:id').delete(userController.banUser);
 
 module.exports = router;

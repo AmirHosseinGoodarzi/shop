@@ -64,6 +64,84 @@
         "responses": {}
       }
     },
+    "/api/users/{id}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get User By Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "User Id",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      },
+      "patch": {
+        "tags": ["users"],
+        "summary": "Updating an existing User by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "User Id",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": ["users"],
+        "summary": "Ban an existing User",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "category Id",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/api/categories": {
       "get": {
         "tags": ["categories"],
@@ -186,6 +264,47 @@
           "icon": {
             "type": "String",
             "example": "image address"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "String",
+            "example": "User name"
+          },
+          "family": {
+            "type": "String",
+            "example": "User family"
+          },
+          "email": {
+            "type": "String",
+            "example": "example@gmail.com"
+          },
+          "mobile": {
+            "type": "String",
+            "example": "09012345678"
+          },
+          "profileImage": {
+            "type": "String",
+            "example": "User profile image address"
+          },
+          "nationalCode": {
+            "type": "String",
+            "example": "4120683095"
+          },
+          "cart": {
+            "type": "Array",
+            "example": "[productIds]"
+          },
+          "favorites": {
+            "type": "Array",
+            "example": "[productIds]"
+          },
+          "locations": {
+            "type": "String",
+            "example": "[PointX,PointY]"
           }
         }
       }
