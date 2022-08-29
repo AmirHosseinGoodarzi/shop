@@ -11,9 +11,9 @@ const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDoc = require('./swagger.json');
-const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const swaggerDoc = require('./utils/misc/swagger.json');
+const AppError = require('./utils/appError');
 
 const userRouter = require('./routes/userRoutes');
 const categoryRouter = require('./routes/categoryRoutes');

@@ -335,10 +335,6 @@
             "type": "String",
             "example": "Category Name"
           },
-          "slug": {
-            "type": "String",
-            "example": "---"
-          },
           "icon": {
             "type": "String",
             "example": "image address"

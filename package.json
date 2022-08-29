@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/AmirHosseinGoodarzi/shop#readme",
   "dependencies": {
+    "accesscontrol": "^2.2.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
     "compression": "^1.7.4",

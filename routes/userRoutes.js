@@ -1,7 +1,7 @@
 const express = require('express');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
-const ENUMS = require('../utils/Enums');
+const { USER_PERMISSIONS } = require('../utils/Enums');
 
 const router = express.Router();
 
@@ -15,11 +15,20 @@ router.use(authController.protect);
 
 router
   .route('/:id')
-  .get(userController.getUser)
-  .patch(userController.updateUser);
+  .get(
+    authController.hasPermission(USER_PERMISSIONS.READ_ANY, 'User'),
+    userController.getUser
+  )
+  .patch(
+    authController.hasPermission(USER_PERMISSIONS.UPDATE_ANY, 'User'),
+    userController.updateUser
+  );
 
-router.use(authController.restrictTo(ENUMS.USER_ROLES.ADMIN));
-
-router.route('/:id').delete(userController.banUser);
+router
+  .route('/:id')
+  .delete(
+    authController.hasPermission(USER_PERMISSIONS.DELETE_ANY, 'User'),
+    userController.banUser
+  );
 
 module.exports = router;

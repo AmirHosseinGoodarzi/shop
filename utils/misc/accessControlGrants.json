@@ -1,0 +1,20 @@
+{
+  "ADMIN": {
+    "Category": {
+      "create:any": ["*"],
+      "read:any": ["*"],
+      "update:any": ["*"],
+      "delete:any": ["*"]
+    },
+    "Product": {
+      "create:any": ["*"],
+      "read:any": ["*"],
+      "update:any": ["*"],
+      "delete:any": ["*"]
+    }
+  },
+  "USER": {
+    "Category": { "read:any": ["*"] },
+    "Product": { "read:any": ["*"] }
+  }
+}

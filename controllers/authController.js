@@ -1,8 +1,13 @@
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
+const AccessControl = require('accesscontrol');
+const accessControlGrants = require('../utils/misc/accessControlGrants.json');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const { USER_PERMISSIONS } = require('../utils/Enums');
+
+const ac = new AccessControl(accessControlGrants);
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -131,9 +136,51 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.restrictTo = (...roles) => {
+// exports.restrictTo = (...roles) => {
+//   return (req, res, next) => {
+//     if (!roles.includes(req.user.role)) {
+//       return next(
+//         new AppError(
+//           'حساب کاربری شما اجازه و سطح دسترسی به این بخش را ندارد',
+//           403
+//         )
+//       );
+//     }
+//     next();
+//   };
+// };
+exports.hasPermission = (action, asset) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
+    let permission;
+    switch (action) {
+      case USER_PERMISSIONS.CREATE_ANY:
+        permission = ac.can(req.user.role).createAny(asset);
+        break;
+      case USER_PERMISSIONS.READ_ANY:
+        permission = ac.can(req.user.role).readAny(asset);
+        break;
+      case USER_PERMISSIONS.UPDATE_ANY:
+        permission = ac.can(req.user.role).updateAny(asset);
+        break;
+      case USER_PERMISSIONS.DELETE_ANY:
+        permission = ac.can(req.user.role).deleteAny(asset);
+        break;
+      case USER_PERMISSIONS.CREATE_OWN:
+        permission = ac.can(req.user.role).createOwn(asset);
+        break;
+      case USER_PERMISSIONS.READ_OWN:
+        permission = ac.can(req.user.role).readOwn(asset);
+        break;
+      case USER_PERMISSIONS.UPDATE_OWN:
+        permission = ac.can(req.user.role).updateOwn(asset);
+        break;
+      case USER_PERMISSIONS.DELETE_OWN:
+        permission = ac.can(req.user.role).deleteOwn(asset);
+        break;
+      default:
+        break;
+    }
+    if (!permission.granted) {
       return next(
         new AppError(
           'حساب کاربری شما اجازه و سطح دسترسی به این بخش را ندارد',
