@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const reportSchema = new mongoose.Schema({
-  product: {
+  Product: {
     type: mongoose.Schema.ObjectId,
     ref: 'Product',
     required: [true, 'مشخص کردن محصول برای ثبت گزارش الزامی است'],

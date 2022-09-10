@@ -56,7 +56,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  category: {
+  Category: {
     type: mongoose.Schema.ObjectId,
     ref: 'Category',
     required: [true, 'هر محصول باید دسته بندی مشخص داشته باشد'],

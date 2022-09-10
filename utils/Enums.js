@@ -32,5 +32,9 @@ const ENUMS = {
     DELIVERING: 'DELIVERING',
     DELIVERED: 'DELIVERED',
   },
+  PAYMENT_PORTS: {
+    MELLAT: 'MELLAT',
+    PAYPAL: 'PAYPAL',
+  },
 };
 module.exports = ENUMS;

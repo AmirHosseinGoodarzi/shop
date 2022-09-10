@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const commentSchema = new mongoose.Schema({
-  product: {
+  Product: {
     type: mongoose.Schema.ObjectId,
     ref: 'Product',
     required: [true, 'مشخص کردن محصولِ مربوط به این نظر الزامی است'],
   },
-  user: {
+  User: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: [true, 'مشخص کردن کاربر نظر دهنده الزامی است'],

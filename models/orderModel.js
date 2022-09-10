@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const ENUMS = require('../utils/Enums');
 
 const orderSchema = new mongoose.Schema({
-  user: {
+  User: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: [true, 'مشخص کردن کاربر سفارش دهنده الزامی است'],
   },
-  products: [
+  Products: [
     {
       type: mongoose.Schema.ObjectId,
       ref: 'Product',

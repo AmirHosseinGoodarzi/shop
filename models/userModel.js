@@ -35,13 +35,13 @@ const userSchema = new mongoose.Schema({
     ],
     default: ENUMS.USER_ROLES.USER,
   },
-  cart: [
+  Cart: [
     {
       type: mongoose.Schema.ObjectId,
       ref: 'Product',
     },
   ],
-  favorites: [
+  Favorites: [
     {
       type: mongoose.Schema.ObjectId,
       ref: 'Product',

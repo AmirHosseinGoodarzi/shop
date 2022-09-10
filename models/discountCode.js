@@ -15,21 +15,18 @@ const discountCodeSchema = new mongoose.Schema({
     type: Number,
     // required: [true, 'تعیین میزان تخفیف برای هر کد الزامی است'],
   },
+  minPurchase: {
+    type: Number,
+  },
   // or
   amount: {
     type: Number,
     // required: [true, 'تعیین مبلغ تخفیف برای هر کد الزامی است'],
   },
-  user: {
+  User: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     // required: [true, 'مشخص کردن کاربر استفاده کننده از کد تخفیف الزامی است'],
-  },
-  // or
-  product: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Product',
-    // required: [true, 'مشخص کردن محصولِ مربوط به این کد تخفیف الزامی است'],
   },
 });
 
