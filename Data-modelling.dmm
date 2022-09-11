@@ -262,7 +262,7 @@
 				},
 				{
 					"id": "b640f2c2-a092-49ff-b8c8-8cd955e34b7e",
-					"name": "SubCategories",
+					"name": "parentId",
 					"datatype": "objectId",
 					"param": "",
 					"pk": false,
@@ -272,7 +272,7 @@
 					"data": "",
 					"fk": true,
 					"ref": "Category",
-					"list": true
+					"list": false
 				},
 				{
 					"id": "795798e4-369e-4c68-9135-66fd51b74554",
@@ -1457,7 +1457,7 @@
 		"replaceSpace": "_",
 		"color": "transparent",
 		"sideSelections": true,
-		"isDirty": false,
+		"isDirty": true,
 		"storedin": {
 			"major": 4,
 			"minor": 6,
@@ -1473,7 +1473,7 @@
 		"def_validationAction": "na",
 		"def_collation": "",
 		"def_others": "",
-		"lastSaved": "Sun Sep 11 2022 21:16:16 GMT+0430 (Iran Daylight Time)"
+		"lastSaved": "9/11/2022"
 	},
 	"otherObjects": {},
 	"diagrams": {
@@ -1505,7 +1505,7 @@
 					"x": 213,
 					"y": 729,
 					"gHeight": 117,
-					"gWidth": 232,
+					"gWidth": 194,
 					"color": "#ffffff",
 					"background": "#009688",
 					"resized": false,
