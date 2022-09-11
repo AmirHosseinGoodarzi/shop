@@ -1,3 +1,9 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "react/function-component-definition": [
+    2,
+    {
+      "namedComponents": "function-declaration"
+    }
+  ]
 }

@@ -1,0 +1,6 @@
+.wrapper{
+    @apply fixed right-0 top-0 w-64 h-screen bg-red-500 overflow-y-auto transition-all p-3;
+    &.collapsed{
+        @apply w-16;
+    }
+}
