@@ -261,6 +261,20 @@
 					"data": ""
 				},
 				{
+					"id": "b640f2c2-a092-49ff-b8c8-8cd955e34b7e",
+					"name": "SubCategories",
+					"datatype": "objectId",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"fk": true,
+					"ref": "Category",
+					"list": true
+				},
+				{
 					"id": "795798e4-369e-4c68-9135-66fd51b74554",
 					"name": "name",
 					"datatype": "string",
@@ -304,7 +318,8 @@
 				}
 			],
 			"relations": [
-				"7b2b2d5d-999c-4fbd-92d2-e60d21f0f1ee"
+				"7b2b2d5d-999c-4fbd-92d2-e60d21f0f1ee",
+				"ac4b1c5a-92c3-44c8-8658-8a30b4da0914"
 			],
 			"lines": [],
 			"keys": [
@@ -1400,6 +1415,31 @@
 			],
 			"generate": true,
 			"generateCustomCode": true
+		},
+		"ac4b1c5a-92c3-44c8-8658-8a30b4da0914": {
+			"id": "ac4b1c5a-92c3-44c8-8658-8a30b4da0914",
+			"visible": true,
+			"name": "Category_Category",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "6f878f7c-f45b-4f2f-8cf5-311a91195aff",
+			"parent": "65b6ba32-7a89-404f-9a52-a0a5bf4a9bb4",
+			"child": "65b6ba32-7a89-404f-9a52-a0a5bf4a9bb4",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "many",
+			"c_cp": "",
+			"c_cch": "",
+			"cols": [
+				{
+					"id": "0aad8c7f-e0e0-472c-8b62-b4eb86a69407",
+					"parentcol": "769d79f1-f832-4071-bc7b-196db46d1dbf",
+					"childcol": "b640f2c2-a092-49ff-b8c8-8cd955e34b7e"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true
 		}
 	},
 	"notes": {},
@@ -1417,7 +1457,7 @@
 		"replaceSpace": "_",
 		"color": "transparent",
 		"sideSelections": true,
-		"isDirty": true,
+		"isDirty": false,
 		"storedin": {
 			"major": 4,
 			"minor": 6,
@@ -1433,7 +1473,7 @@
 		"def_validationAction": "na",
 		"def_collation": "",
 		"def_others": "",
-		"lastSaved": "Sun Sep 11 2022 00:12:17 GMT+0430 (Iran Daylight Time)"
+		"lastSaved": "Sun Sep 11 2022 21:16:16 GMT+0430 (Iran Daylight Time)"
 	},
 	"otherObjects": {},
 	"diagrams": {
@@ -1464,8 +1504,8 @@
 					"referencedItemId": "65b6ba32-7a89-404f-9a52-a0a5bf4a9bb4",
 					"x": 213,
 					"y": 729,
-					"gHeight": 99,
-					"gWidth": 166,
+					"gHeight": 117,
+					"gWidth": 232,
 					"color": "#ffffff",
 					"background": "#009688",
 					"resized": false,

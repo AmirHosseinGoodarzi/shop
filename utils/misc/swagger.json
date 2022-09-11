@@ -335,6 +335,10 @@
             "type": "String",
             "example": "Category Name"
           },
+          "parentId":{
+            "type": "ObjectId",
+            "example": "[categoryIds]"
+          },
           "icon": {
             "type": "String",
             "example": "image address"
@@ -368,11 +372,11 @@
             "type": "String",
             "example": "4120683095"
           },
-          "cart": {
+          "Cart": {
             "type": "Array",
             "example": "[productIds]"
           },
-          "favorites": {
+          "Favorites": {
             "type": "Array",
             "example": "[productIds]"
           },
@@ -423,7 +427,7 @@
             "type": "String",
             "example": "description and about of product"
           },
-          "category": {
+          "Category": {
             "type": "String",
             "example": "Category Id"
           },

@@ -6,13 +6,12 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: [true, 'پر کردن فیلد نام دسته بندی الزامی است'],
     trim: true,
+    unique: true,
   },
-  SubCategories: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Category',
-    },
-  ],
+  parentId: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Category',
+  },
   slug: String,
   icon: String,
 });
