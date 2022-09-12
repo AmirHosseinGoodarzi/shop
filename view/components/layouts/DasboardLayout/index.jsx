@@ -7,21 +7,13 @@ const DasboardLayout = ({ children }) => {
 
   return (
     <div>
-      <Sidebar isCollapsed={isCollapsed} />
+      <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed}/>
       <main
         className={`${styles.content} ${
           isCollapsed ? styles.collapsed_sideBar : ''
         }`}
       >
         {children}
-        <button
-          className='bg-blue-500 text-white mx-10 p-5'
-          onClick={() => {
-            setIsCollapsed(!isCollapsed);
-          }}
-        >
-          collapse
-        </button>
       </main>
     </div>
   );

@@ -1,6 +1,36 @@
-.wrapper{
-    @apply fixed right-0 top-0 w-64 h-screen bg-red-500 overflow-y-auto transition-all p-3;
-    &.collapsed{
-        @apply w-16;
+.wrapper {
+  @apply fixed right-0 top-0 w-64 h-screen bg-dark-300 overflow-y-auto 
+    transition-all p-3 border-l-2 border-x-dark-100;
+  #header {
+    @apply flex justify-between items-center text-gray-300;
+    #logo {
+      @apply bg-red-500 px-5 py-2 text-2xl cursor-pointer;
     }
+    #toggler {
+      @apply cursor-pointer;
+    }
+  }
+  .menu_item {
+    @apply flex p-3 my-2 text-gray-300 hover:bg-dark-100 transition-all cursor-pointer rounded-md;
+    &.active {
+      @apply bg-purple;
+    }
+    i {
+      @apply ml-3;
+    }
+  }
+  &.collapsed {
+    @apply w-16;
+    .menu_item {
+      span {
+        @apply hidden;
+      }
+    }
+    #header {
+      @apply justify-center;
+      #logo {
+        @apply hidden;
+      }
+    }
+  }
 }
