@@ -1,0 +1,32 @@
+[
+  {
+    "title": "بخش اصلی",
+    "items": [
+      {
+        "title": "صفحه اصلی",
+        "href": "/dashboard",
+        "icon": "HandIndexThumbFill"
+      },
+      {
+        "title": "صفحه اصلی",
+        "href": "/",
+        "icon": "HandIndexThumbFill"
+      },
+      {
+        "title": "صفحه 2",
+        "href": "/",
+        "icon": "HandIndexThumbFill"
+      },
+      {
+        "title": "صفحه 3",
+        "href": "/",
+        "icon": "HandIndexThumbFill"
+      },
+      {
+        "title": "صفحه 4",
+        "href": "/",
+        "icon": "HandIndexThumbFill"
+      }
+    ]
+  }
+]

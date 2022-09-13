@@ -1,5 +1,5 @@
 .content {
-    @apply p-10 pr-72 bg-green-500 min-h-screen transition-all;
+    @apply p-10 pr-72 bg-dark-300 text-red-400 min-h-screen transition-all;
     &.collapsed_sideBar{
         @apply pr-24;
     }
