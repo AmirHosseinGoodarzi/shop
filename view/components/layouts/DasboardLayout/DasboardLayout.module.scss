@@ -1,6 +1,24 @@
-.content {
-    @apply p-10 pr-72 bg-dark-300 text-red-400 min-h-screen transition-all;
-    &.collapsed_sideBar{
-        @apply pr-24;
+.main_wrapper{
+    @apply bg-dark-300 text-gray-300;
+    .content {
+        @apply p-10 md:pr-72 min-h-screen transition-all;
+        &.collapsed_sideBar{
+            @apply pr-10 md:pr-20;
+        }
+    }
+    nav{
+        @apply w-full flex items-center justify-between px-5 py-3 border-b-2 border-dark-100;;
+        ul{
+            @apply flex items-center justify-center gap-10;
+            .cart,.notification{
+                @apply relative cursor-pointer;
+                span{
+                    @apply absolute flex items-center justify-center text-center -top-1.5 -right-1.5 bg-purple text-xs rounded-full w-3 h-3 p-2;
+                }
+            }
+            .avatar{
+                @apply w-10 h-10;
+            }
+        }
     }
 }

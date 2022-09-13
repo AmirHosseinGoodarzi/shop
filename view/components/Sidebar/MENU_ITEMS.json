@@ -4,28 +4,32 @@
     "items": [
       {
         "title": "صفحه اصلی",
-        "href": "/dashboard",
-        "icon": "HandIndexThumbFill"
+        "href": "/dashboard"
       },
       {
-        "title": "صفحه اصلی",
-        "href": "/",
-        "icon": "HandIndexThumbFill"
+        "title": "صفحه 1",
+        "children":[
+          {
+            "title": "صفحه 1-1",
+            "href": "/"
+          },
+          {
+            "title": "صفحه 2-1",
+            "href": "/"
+          }
+        ]
       },
       {
         "title": "صفحه 2",
-        "href": "/",
-        "icon": "HandIndexThumbFill"
+        "href": "/"
       },
       {
         "title": "صفحه 3",
-        "href": "/",
-        "icon": "HandIndexThumbFill"
+        "href": "/"
       },
       {
         "title": "صفحه 4",
-        "href": "/",
-        "icon": "HandIndexThumbFill"
+        "href": "/"
       }
     ]
   }
