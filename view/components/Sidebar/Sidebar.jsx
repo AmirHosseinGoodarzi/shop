@@ -22,9 +22,9 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
         </div>
       </div>
       <ul>
-        {MENU_ITEMS.map((section) => {
+        {MENU_ITEMS.map((section,index) => {
           return (
-            <>
+            <React.Fragment key={index}>
               <p className={styles.menu_section_header}>{section.title}</p>
               {section.items.map((item, index) => {
                 if (item.children) {
@@ -46,7 +46,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
                 </MenuItem>
               })
               }
-            </>)
+            </React.Fragment>)
         })}
       </ul>
     </div>

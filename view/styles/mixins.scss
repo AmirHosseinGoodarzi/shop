@@ -1,0 +1,19 @@
+@mixin floating_menu {
+  @apply absolute left-0 top-14;
+  animation: swingInBack 0.6s ease 0s 1 normal forwards;
+  &::before {
+    @apply w-0 h-0 absolute left-3 border-solid border-transparent border-b-dark-200;
+    content: '';
+    bottom: calc(100% - 5px);
+    border-width: 0 12px 12px 12px;
+  }
+  ul {
+    @apply w-52 p-2 flex flex-col bg-dark-200 rounded-lg;
+    li {
+      @apply flex justify-start items-center p-3 hover:bg-dark-100 transition-all rounded-lg;
+      i {
+        @apply ml-3;
+      }
+    }
+  }
+}

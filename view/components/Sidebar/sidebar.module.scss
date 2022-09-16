@@ -1,6 +1,6 @@
 .wrapper {
   @apply fixed right-0 top-0 w-64 max-w-full h-screen bg-dark-300 overflow-y-auto 
-    transition-all p-3 border-l-2 border-dark-100 z-10;
+    transition-all p-3 border-l border-dark-100 z-10;
   #header {
     @apply flex justify-between items-center text-gray-300 mb-10;
     #logo {
