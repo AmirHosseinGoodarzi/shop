@@ -2,14 +2,48 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Node js Shop ",
-    "description": "Shop using modern technologies: node.js, express, mongoDB, mongoose and friends 😂\n\n**Base Url : [localhost:3000](http://localhost:3000)**",
+    "description": "Shop using modern technologies: node.js, express, mongoDB, mongoose and friends 😂\n\n**Base Url : [localhost:8080](http://localhost:8080)**",
     "contact": {
       "email": "AmirGoodarzi.web@gmail.com"
     },
     "version": "0.0.1"
   },
   "paths": {
-    "/api/users/loginSignup": {
+    "/api/users": {
+      "get": {
+        "summary": "Get All users List",
+        "tags": ["users"],
+        "responses": {}
+      }
+    },
+    "/api/users/EmailLoginSignup": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Sign up operation | (if user Exist) Login operation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "example@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "paSsword@123"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {}
+      }
+    },
+    "/api/users/MobileLoginSignup": {
       "post": {
         "tags": ["users"],
         "summary": "Sign up operation | (if user Exist) Login operation",
@@ -64,6 +98,136 @@
         "responses": {}
       }
     },
+    "/api/users/forgotPassword": {
+      "post": {
+        "tags": ["users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "example@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {}
+      }
+    },
+    "/api/users/resetPassword/{token}": {
+      "patch": {
+        "tags": ["users"],
+        "parameters": [
+          {
+            "token": "id",
+            "in": "path",
+            "description": "Reset Password Token",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "example": "paSsword@123"
+                  },
+                  "passwordConfirm": {
+                    "type": "string",
+                    "example": "paSsword@123"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {}
+      }
+    },
+    "/api/users/updateMyPassword": {
+      "patch": {
+        "tags": ["users"],
+        "summary": "Update User own password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "passwordCurrent": {
+                    "type": "string",
+                    "example": "paSsword@123"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "paSsword@123"
+                  },
+                  "passwordConfirm": {
+                    "type": "string",
+                    "example": "paSsword@123"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/users/me": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get User own info",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/users/updateMe": {
+      "patch": {
+        "tags": ["users"],
+        "summary": "Update User own info except password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/api/users/{id}": {
       "get": {
         "tags": ["users"],
@@ -71,7 +235,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
             "description": "User Id",
             "required": true,
             "explode": true,
@@ -93,7 +257,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
             "description": "User Id",
             "required": true,
             "explode": true,
@@ -118,15 +282,57 @@
           }
         ],
         "responses": {}
-      },
+      }
+    },
+    "/api/users/banUser": {
       "delete": {
         "tags": ["users"],
         "summary": "Ban an existing User",
         "parameters": [
           {
             "name": "id",
-            "in": "query",
-            "description": "category Id",
+            "in": "path",
+            "description": "User Id",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "banReason": {
+                    "type": "string",
+                    "example": "استفاده از الفاظ رکیک"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/users/unBanUser": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Unban an existing User",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User Id",
             "required": true,
             "explode": true,
             "schema": {
@@ -198,7 +404,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
             "description": "category Id",
             "required": true,
             "explode": true,
@@ -335,7 +541,7 @@
             "type": "String",
             "example": "Category Name"
           },
-          "parentId":{
+          "parentId": {
             "type": "ObjectId",
             "example": "[categoryIds]"
           },
@@ -396,12 +602,19 @@
           "type": {
             "type": "string",
             "default": "available",
-            "enum": ["ENUMS.PRODUCT_TYPES.DIGITAL", "ENUMS.PRODUCT_TYPES.PHISYCAL"]
+            "enum": [
+              "ENUMS.PRODUCT_TYPES.DIGITAL",
+              "ENUMS.PRODUCT_TYPES.PHISYCAL"
+            ]
           },
           "status": {
             "type": "string",
             "default": "available",
-            "enum": ["ENUMS.PRODUCT_STATUSES.IN_STOCK", "ENUMS.PRODUCT_STATUSES.WARNING", "ENUMS.PRODUCT_STATUSES.OUT_OF_STOCK"]
+            "enum": [
+              "ENUMS.PRODUCT_STATUSES.IN_STOCK",
+              "ENUMS.PRODUCT_STATUSES.WARNING",
+              "ENUMS.PRODUCT_STATUSES.OUT_OF_STOCK"
+            ]
           },
           "images": {
             "type": "Array",

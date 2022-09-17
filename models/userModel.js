@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
+const crypto = require('crypto');
 const ENUMS = require('../utils/Enums');
 
 const userSchema = new mongoose.Schema({
@@ -14,7 +15,7 @@ const userSchema = new mongoose.Schema({
   },
   mobile: {
     type: String,
-    required: [true, 'پر کردن فیلد شماره موبایل الزامی است'],
+    // required: [true, 'پر کردن فیلد شماره موبایل الزامی است'],
     validate: {
       validator: function (val) {
         // this only points to current doc on NEW document creation
@@ -60,31 +61,38 @@ const userSchema = new mongoose.Schema({
       day: Number,
     },
   ],
-  otpCode: String,
-  otpCodeExpires: Date,
+  otpCode: {
+    type: String,
+    select: false,
+  },
+  otpCodeExpires: {
+    type: Date,
+    select: false,
+  },
   active: {
     type: Boolean,
     default: true,
     select: false,
   },
-  // password: {
-  //   type: String,
-  //   minlength: 8,
-  //   select: false,
-  // },
-  // passwordConfirm: {
-  //   type: String,
-  //   validate: {
-  //     // This only works on CREATE and SAVE!!!
-  //     validator: function (el) {
-  //       return el === this.password;
-  //     },
-  //     message: 'رمز عبور و تکرار آن با هم مطابقت ندارند',
-  //   },
-  // },
-  // passwordChangedAt: Date,
-  // passwordResetToken: String,
-  // passwordResetExpires: Date,
+  banReason: String,
+  password: {
+    type: String,
+    minlength: 8,
+    select: false,
+  },
+  passwordConfirm: {
+    type: String,
+    validate: {
+      // This only works on CREATE and SAVE!!!
+      validator: function (el) {
+        return el === this.password;
+      },
+      message: 'رمز عبور و تکرار آن با هم مطابقت ندارند',
+    },
+  },
+  passwordChangedAt: Date,
+  passwordResetToken: { type: String, select: false },
+  passwordResetExpires: { type: Date, select: false },
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -92,6 +100,14 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// just find active users
+// userSchema.pre(/^find/, function (next) {
+//   // this points to the current query
+//   this.find({ active: { $ne: false } });
+//   next();
+// });
+
+// otp operations
 userSchema.methods.generateOtpCode = async function () {
   if (this.otpCodeExpires && Date.parse(this.otpCodeExpires) >= Date.now()) {
     return null;
@@ -109,8 +125,7 @@ userSchema.methods.generateOtpCode = async function () {
   this.otpCodeExpires = Date.now() + 2 * 60 * 1000; // this code works for 2 mins
   return testOtp;
 };
-
-userSchema.methods.otpCodeIsCorrect = async function (
+userSchema.methods.compareOtpCodes = async function (
   code,
   userCode,
   codeExpires
@@ -119,6 +134,56 @@ userSchema.methods.otpCodeIsCorrect = async function (
     return false;
   }
   return await bcrypt.compare(code, userCode);
+};
+// password operations
+userSchema.pre('save', async function (next) {
+  // Only run this function if password was actually modified
+  if (!this.isModified('password')) return next();
+  // Hash the password with cost of 12
+  this.password = await bcrypt.hash(this.password, 12);
+  // Delete passwordConfirm field
+  this.passwordConfirm = undefined;
+  next();
+});
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now() - 1000;
+  next();
+});
+userSchema.methods.comparePasswords = async function (
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return JWTTimestamp < changedTimestamp;
+  }
+  // False means NOT changed
+  return false;
+};
+userSchema.methods.createPasswordResetToken = function () {
+  if (
+    // eslint-disable-next-line operator-linebreak
+    this.passwordResetExpires &&
+    Date.parse(this.passwordResetExpires) >= Date.now()
+  ) {
+    return null;
+  }
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+  // console.log({ resetToken }, this.passwordResetToken);
+  this.passwordResetExpires = Date.now() + 5 * 60 * 1000; // this code works for 5 mins
+  return resetToken;
 };
 
 const userModel = mongoose.model('User', userSchema);

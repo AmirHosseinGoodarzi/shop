@@ -1,5 +1,11 @@
 {
   "ADMIN": {
+    "User": {
+      "create:any": ["*"],
+      "read:any": ["*"],
+      "update:any": ["*"],
+      "delete:any": ["*"]
+    },
     "Category": {
       "create:any": ["*"],
       "read:any": ["*"],
@@ -15,6 +21,10 @@
   },
   "USER": {
     "Category": { "read:any": ["*"] },
-    "Product": { "read:any": ["*"] }
+    "Product": { "read:any": ["*"] },
+    "User": {
+      "read:own": ["*"],
+      "update:own": ["*"]
+    }
   }
 }
